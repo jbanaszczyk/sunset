@@ -23,8 +23,7 @@
  * along with Foobar.    If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __SUNPOSITION_H__
-#define __SUNPOSITION_H__
+#pragma once
 
 #include <cmath>
 #include <ctime>
@@ -65,8 +64,6 @@
  */
 class SunSet {
 public:
-    SunSet();
-    SunSet(double, double, int);
     SunSet(double, double, double);
     ~SunSet();
 
@@ -75,9 +72,7 @@ public:
     static constexpr double SUNSET_CIVIL = 96.0;            /**< Civil sun angle for sunset */
     static constexpr double SUNSET_ASTONOMICAL = 108.0;     /**< Astronomical sun angle for sunset */
     
-    void setPosition(double, double, int);
     void setPosition(double, double, double);
-    void setTZOffset(int);
     void setTZOffset(double);
     double setCurrentDate(int, int, int);
     double calcNauticalSunrise() const;
@@ -88,31 +83,31 @@ public:
     double calcAstronomicalSunset() const;
     double calcCustomSunrise(double) const;
     double calcCustomSunset(double) const;
-    [[deprecated("UTC specific calls may not be supported in the future")]] double calcSunriseUTC();
-    [[deprecated("UTC specific calls may not be supported in the future")]] double calcSunsetUTC();
+    double calcSunriseUTC();
+    double calcSunsetUTC();
     double calcSunrise() const;
     double calcSunset() const;
-    int moonPhase(int) const;
-    int moonPhase() const;
+    static int moonPhase(long);
+    static int moonPhase();
     
 private:
-    double degToRad(double) const;
-    double radToDeg(double) const;
-    double calcMeanObliquityOfEcliptic(double) const;
-    double calcGeomMeanLongSun(double) const;
-    double calcObliquityCorrection(double) const;
-    double calcEccentricityEarthOrbit(double) const;
-    double calcGeomMeanAnomalySun(double) const;
-    double calcEquationOfTime(double) const;
-    double calcTimeJulianCent(double) const;
+    static double degToRad(double) ;
+    static double radToDeg(double) ;
+    static double calcMeanObliquityOfEcliptic(double) ;
+    static double calcGeomMeanLongSun(double) ;
+    static double calcObliquityCorrection(double) ;
+    static double calcEccentricityEarthOrbit(double) ;
+    static double calcGeomMeanAnomalySun(double) ;
+    static double calcEquationOfTime(double) ;
+    static double calcTimeJulianCent(double) ;
     double calcSunTrueLong(double) const;
     double calcSunApparentLong(double) const;
     double calcSunDeclination(double) const;
-    double calcHourAngleSunrise(double, double, double) const;
-    double calcHourAngleSunset(double, double, double) const;
-    double calcJD(int,int,int) const;
-    double calcJDFromJulianCent(double) const;
-    double calcSunEqOfCenter(double) const;
+    static double calcHourAngleSunrise(double, double, double) ;
+    static double calcHourAngleSunset(double, double, double) ;
+    static double calcJD(int,int,int) ;
+    static double calcJDFromJulianCent(double) ;
+    static double calcSunEqOfCenter(double) ;
     double calcAbsSunrise(double) const;
     double calcAbsSunset(double) const;
 
@@ -120,9 +115,4 @@ private:
     double m_longitude;
     double m_julianDate;
     double m_tzOffset;
-    int m_year;
-    int m_month;
-    int m_day;
 };
-
-#endif
